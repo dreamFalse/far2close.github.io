@@ -1,3 +1,9 @@
+---
+layout: mypost
+title: PyTorch源码阅读之torch.autograd()
+categories: [PyTorch]
+---
+
 # PyTorch源码阅读之torch.autograd()
 ## 前言
 本篇笔记介绍PyTorch中的autograd模块功能为主,主要涉及torch/autograd下代码,不涉及底层C++实现,本文涉及源代码以PyTorch1.7为准.
