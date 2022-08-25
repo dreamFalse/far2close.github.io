@@ -10,7 +10,7 @@ categories: [PyTorch]
 - torch.autograd.functional (计算图的反向传播)
 - torch.autograd.gradcheck (数值梯度检查)
 - torch.autograd.anomaly_mode (在自动求导时检测错误产生路径)
-- torch.autpgrad.grad_mode (设置是否需要梯度)
+- torch.autograd.grad_mode (设置是否需要梯度)
 - model.eval() 与 model.no_grad()
 - torch.autograd.profiler (提供function级别的统计信息)
 
@@ -45,5 +45,18 @@ class Tensor(torch._C._TensorBase)
         # create_graph: 为反向传播的过程同样建立计算图，可用于计算二阶导
 ```
 在PyTorch视线中,autograd会随着用户的操作,记录生成当前variable的所有操作,并建立一个有向无环图(DAG).图中记录了操作`Function`,每一个变量在图中的位置可通过其`grad_fn`属性在图中的位置推测得到。在反向传播过程中，autograd沿着这个图从当前变量溯源，可以利用链式求导法则计算所有叶子结点的梯度。
+
 ## `torch.autograd.gradcheck` (数值梯度检查)
-在编写好自己的autograd function后，可以利用`gradckeck`和`gradgradcheck`接口，对数值算得的梯度和求导算得的梯度进行比较
+在编写好自己的autograd function后，可以利用`gradckeck`和`gradgradcheck`接口，对数值算得的梯度和求导算得的梯度进行比较,以检查`backward`是否编写正确。以函数$f(x)=y, x\in R^n,y\in R$为例。
+
+## `torch.autograd.anomaly_mode`（在自动求导时检测错误产生路径）
+可用于在自动求导时检测错误产生路径，借助`with autograd.detect_anomaly():`或是`torch.autograd.set_detect_anomaly(True)`来启用。
+
+## `torch.autograd.grad_mode`（设置是否需要梯度）
+我们在inference过程中，不希望autograd对tensor求导，因为求导需要缓存许多中间结构，增加额外的内存、显存开销。在inference时，关闭自动求导可实现一定程度的速度提升，并节省大量的内存和显存。我们可以利用`grad_mode`中的`torch.no_grad()`来关闭自动求导。
+
+## `model.eval()`与`torch.no_grad()`
+这两项实际无关，在inference的过程中需要都打开：`model.eval()`令model中俄的`BatchNorm`，`Dropout`等model采用eval mode，保证inference结果的正确性，但起不到节省显存的作用。
+
+## `torch.auotgrad.profiler`（提供function级别的统计信息）
+输出包含CPU时间及占比，调用次数等信息。
