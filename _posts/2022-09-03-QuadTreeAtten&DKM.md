@@ -4,7 +4,7 @@ title: QuadTreeAttn&DKM论文阅读
 categories: [论文阅读, 特征匹配]
 ---
 > QUADTREE ATTENTION FOR VISION TRANSFORMERS
-
+> 
 > Deep Kernelized Dense Geometric Matching
 
 ## QuadTree Attention
@@ -12,7 +12,9 @@ QuadTree Attention这篇文章自己很久以前就看到过，当时感觉这�
 
 QuadTree Attention这篇论文也是新意十足，在我看来这篇论文跟其他很多基于Transformer改进的论文一样都是来解决Transformer全局搜索带来的计算复杂度过高和只考虑全局信息（对局部信息处理并不是很好）的问题。这篇论文看名字就可以知道是采用四叉树方法的，在论文中，作者写道：我们观察到图片中大部分的区域彼此之间都是不相关的，因此作者使用了一个金字塔类型的结构可以快速跳过不相关的区域，每次将待搜索的区域分为4块，只取其中的topk（2）块来计算attention操作，最后在模型效果和计算复杂度上都有了提升。
 
-说点个人观点，我其实是讨厌这种结构的，感觉不是很优雅（也可能是树结构对我来说太难了 **| :+)**
+说点个人观点，我其实是讨厌这种结构的，感觉不是很优雅（也可能是树结构对我来说太难了。囧
 
 ## DKM
-DKM这篇论文是我看到有人和这个方法进行比较，而且看到这个方法效果还不错，来读一下这篇论文（太劝退了，这篇论文好多数学公式）。
+DKM这篇论文是我看到有人和这个方法进行比较，而且看到这个方法效果还不错，来读一下这篇论文（太劝退了，这篇论文好多数学公式）,而且不是很懂别的文章都是Image matching而这篇文章第一句就来了个Geometric matching，这篇文章又给出了很多定义，比如把LoFTR定义为semi-sparse methods。这篇文章跟ASpanFormer有些相似，感觉光流法和稀疏点的匹配之间的GAP在缩小，尤其是LoFTR和COTR出现之后。
+
+
